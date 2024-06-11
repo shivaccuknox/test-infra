@@ -32,6 +32,9 @@
           extraMounts:
             - hostPath: /var/run/{{ container_engine }}.sock
               containerPath: /var/run/{{ container_engine }}.sock
+        networking:
+          disableDefaultCNI: true
+          podSubnet: 192.168.200.0/8
       {% if lookup('ansible.builtin.env', 'DOCKER_REGISTRY_MIRRORS') %}
       containerdConfigPatches:
         - |-
@@ -40,6 +43,14 @@
       {% endif %}
   when: not 'kind' in bootstrap_kind_get_cluster.stdout
   changed_when: true
+
+- name: Install the calico operator
+  become: true
+  ansible.builtin.command: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/tigera-operator.yaml
+
+- name: Install the calico CRDs
+  become: true
+  ansible.builtin.command: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/custom-resources.yaml
 
 - name: Create .kube directory
   ansible.builtin.file:
