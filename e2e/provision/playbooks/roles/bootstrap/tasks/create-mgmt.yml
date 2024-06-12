@@ -44,9 +44,9 @@
   when: not 'kind' in bootstrap_kind_get_cluster.stdout
   changed_when: true
 
-- name: Install the calico operator
+- name: Install the calico manifests
   become: true
-  ansible.builtin.command: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.28.0/manifests/tigera-operator.yaml
+  ansible.builtin.command: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.28.0/manifests/calico.yaml
 
 - name: Create .kube directory
   ansible.builtin.file:
