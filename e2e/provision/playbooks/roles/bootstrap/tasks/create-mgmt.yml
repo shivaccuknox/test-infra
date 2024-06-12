@@ -60,9 +60,16 @@
     group: "{{ ansible_user_gid }}"
     mode: '0644'
 
+- name: Download calico.yaml
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/projectcalico/calico/v3.28.0/manifests/calico.yaml
+    dest: /tmp/calico.yaml
+    mode: '0440'
+
 - name: Install the calico manifests
-  become: true
-  ansible.builtin.command: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.28.0/manifests/calico.yaml
+  kubernetes.core.k8s:
+    state: present
+    src: /tmp/calico.yaml
 
 - name: Wait for Kind Nodes to become ready
   kubernetes.core.k8s:
