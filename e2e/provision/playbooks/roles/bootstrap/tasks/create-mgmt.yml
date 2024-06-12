@@ -32,9 +32,9 @@
           extraMounts:
             - hostPath: /var/run/{{ container_engine }}.sock
               containerPath: /var/run/{{ container_engine }}.sock
-        networking:
-          disableDefaultCNI: true
-          podSubnet: 192.168.200.0/8
+      networking:
+        disableDefaultCNI: true
+        podSubnet: 192.168.200.0/8
       {% if lookup('ansible.builtin.env', 'DOCKER_REGISTRY_MIRRORS') %}
       containerdConfigPatches:
         - |-
