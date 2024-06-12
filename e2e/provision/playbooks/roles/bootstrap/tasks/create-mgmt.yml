@@ -46,11 +46,7 @@
 
 - name: Install the calico operator
   become: true
-  ansible.builtin.command: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/tigera-operator.yaml
-
-- name: Install the calico CRDs
-  become: true
-  ansible.builtin.command: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.27.0/manifests/custom-resources.yaml
+  ansible.builtin.command: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.28.0/manifests/tigera-operator.yaml
 
 - name: Create .kube directory
   ansible.builtin.file:
