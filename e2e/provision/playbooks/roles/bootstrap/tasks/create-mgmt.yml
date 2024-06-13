@@ -64,7 +64,7 @@
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/projectcalico/calico/v3.28.0/manifests/calico.yaml
     dest: /tmp/calico.yaml
-    mode: '0660'
+    mode: '0666'
 
 - name: Install the calico manifests
   kubernetes.core.k8s:
