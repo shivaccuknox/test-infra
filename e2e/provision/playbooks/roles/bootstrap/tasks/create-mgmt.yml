@@ -32,6 +32,11 @@
           extraMounts:
             - hostPath: /var/run/{{ container_engine }}.sock
               containerPath: /var/run/{{ container_engine }}.sock
+        - role: worker
+          image: kindest/node:{{ k8s.version }}
+          extraMounts:
+            - hostPath: /var/run/{{ container_engine }}.sock
+              containerPath: /var/run/{{ container_engine }}.sock
       {% if lookup('ansible.builtin.env', 'DOCKER_REGISTRY_MIRRORS') %}
       containerdConfigPatches:
         - |-
